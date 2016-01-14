@@ -22,7 +22,7 @@ angular.module('myApp.landing', ['ngRoute','firebase'])
     "use strict";
 
     // the main firebase reference
-    var rootRef = new Firebase('https://docs-sandbox.firebaseio.com/web/uauth');
+    var rootRef = new Firebase('https://testfirebaselogin.firebaseio.com/');
 
     // pair our routes to our form elements and controller
     var routeMap = {
@@ -71,9 +71,11 @@ angular.module('myApp.landing', ['ngRoute','firebase'])
     function handleAuthResponse(promise, route) {
         $.when(promise)
             .then(function (authData) {
-
-            // route
-            routeTo(route);
+            showAlert({
+                title: authData.getUid(),
+                detail: "Succcess",
+                className: 'alert-success'
+            });
 
         }, function (err) {
             console.log(err);
@@ -162,53 +164,5 @@ angular.module('myApp.landing', ['ngRoute','firebase'])
         controllers[formRoute.controller](activeForm);
     }
 
-    // Set up the transitioning of the route
-    function prepRoute() {
-        transitionRoute(this.path);
-    }
-
-
-    /// Routes
-    ///  #/         - Login
-    //   #/logout   - Logut
-    //   #/register - Register
-    //   #/profile  - Profile
-
-    Path.map("#/").to(prepRoute);
-    Path.map("#/logout").to(prepRoute);
-    Path.map("#/register").to(prepRoute);
-    Path.map("#/landing").to(prepRoute);
-	Path.map("#/dashboard").to(prepRoute);
-
-    Path.root("#/");
-
-    /// Initialize
-    ////////////////////////////////////////
-
-    $(function () {
-
-        // Start the router
-        Path.listen();
-
-        // whenever authentication happens send a popup
-        rootRef.onAuth(function globalOnAuth(authData) {
-
-            if (authData) {
-                showAlert({
-                    title: 'Logged in!',
-                    detail: 'Using ' + authData.provider,
-                    className: 'alert-success'
-                });
-            } else {
-                showAlert({
-                    title: 'You are not logged in',
-                    detail: '',
-                    className: 'alert-info'
-                });
-            }
-
-        });
-
-    });
 
 }(window.jQuery, window.Firebase, window.Path))

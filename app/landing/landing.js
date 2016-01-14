@@ -12,3 +12,4 @@ angular.module('myApp.landing', ['ngRoute','firebase'])
 .controller('landingCtrl', [function() {
 
 }]);
+
