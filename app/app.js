@@ -1,10 +1,11 @@
 'use strict';
-var rootfirebaseRef = new Firebase('https://testfirebaselogin.firebaseio.com/');
+
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute'
-  ,'myApp.landing',
+  ,'firebase'
+  ,'myApp.login'
   ,'myApp.vendor'
 ]).
 config(['$routeProvider', 
@@ -12,14 +13,14 @@ config(['$routeProvider',
 				$routeProvider.
 					when('/vendor', {	
 						templateUrl: 'vendor/vendor.html',
-						controller: 'vendorCtrl'
+						controller: 'VendorCtrl'
 					}).
 					when('/phones/:phoneId', {
 						templateUrl: 'partials/phone-detail.html',
 						controller: 'PhoneDetailCtrl'
 					}).
 					otherwise({
-						redirectTo: '/vendor'
+						redirectTo: '/login'
 					});
 			}
 ]);

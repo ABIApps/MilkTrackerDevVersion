@@ -2,7 +2,7 @@
 
 var app = angular.module('myApp.vendor', ['ngRoute','firebase']);
 
-app.controller('vendorCtrl', function($scope) {
+app.controller('VendorCtrl', function($scope) {
   
   $scope.showDetails=function(){
     $scope.agencyName = 'ABI AGency';

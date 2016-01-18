@@ -1,51 +1,21 @@
-var rootRef = new Firebase('https://testfirebaselogin.firebaseio.com/');
+/*
 'use strict';
 
-angular.module('myApp.login', ['ngRoute','firebase'])
+angular.module('myApp.landing', ['ngRoute','firebase'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/login', {
-    templateUrl: 'login/login.html',
-    controller: 'LoginCtrl'
+  $routeProvider.when('/landing', {
+    templateUrl: 'landing/landing.html',
+    controller: 'landingCtrl'
   });
 }])
 
-.controller('LoginCtrl', ['$scope', '$window', function($scope, $window) {
+.controller('landingCtrl', [function() {
 
- // Handle third party login providers
-    // returns a promise
-function thirdPartyLogin(provider) {
-    var deferred = $.Deferred();
-
-    rootRef.authWithOAuthPopup(provider, function (err, user) {
-        if (err) {
-           deferred.reject(err);
-        }
-
-        if (user) {
-            deferred.resolve(user);
-        }
-    });
-       return deferred.promise();
-};
-
-$scope.login = function(provider) {
-      $scope.err = null;
-    var socialLoginPromise;
-    socialLoginPromise = thirdPartyLogin(provider);
-	
-	$.when(socialLoginPromise)
-           .then(function (authData) {
-			$window.location.href = 'http://localhost:8000/app/index.html#/vendor'; //TODO
-
-       }, function (err) {
-          $scope.err = errMessage(err);
-        });
-    };	
 }]);
+*/
 
 
-/*
 
 
 (function (jQuery, Firebase, Path) {
@@ -186,5 +156,3 @@ $scope.login = function(provider) {
 
 
 }(window.jQuery, window.Firebase, window.Path))
-
-*/
