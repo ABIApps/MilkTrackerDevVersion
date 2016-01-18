@@ -1,0 +1,35 @@
+<form name="testForm" ng-controller="vendorCtrl">
+<div class="col-sm-5 form-box">
+    <div>
+      <div>
+        <h3>New Vendor Creation</h3>
+        <p>Fill in the form below to get instant access:</p>
+      </div>
+      <div>
+        <i class="fa fa-pencil"></i>
+      </div>
+    </div>
+    <div>
+
+	  <div class="form-group">
+        <input type="text" name="form-first-name" placeholder="Company / Agency Name..." class="form-control" id="form-first-name" ng-model="agencyName">
+      </div>
+	  <div class="form-group">
+        <input type="text" name="form-first-name" placeholder="Company Address" class="form-control" id="form-first-name" ng-model="companyAddress">
+      </div>
+      <div class="form-group">
+        <input type="text" name="form-first-name" placeholder="Owner Name..." class="form-control" id="form-first-name" ng-model="ownerName">
+      </div>
+      <div class="form-group">
+        <input type="text" name="form-last-name" placeholder="Phone #" class="form-last-name form-control" id="form-last-name" ng-model="phoneNum">
+      </div>
+      <div class="form-group">
+        <input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email" ng-model="email">
+      </div>
+      <div class="form-group">
+        <textarea name="form-about-yourself" placeholder="About yourself..." class="form-about-yourself form-control" id="form-about-yourself" ng-model="aboutMe"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary" ng-click="showDetails()">Save my vendor Details</button>
+    </div>
+  </div>
+  </form>

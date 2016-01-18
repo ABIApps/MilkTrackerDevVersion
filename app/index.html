@@ -18,7 +18,16 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 		<link rel="stylesheet" href="assets/css/form-elements.css">
         <link rel="stylesheet" href="assets/css/style.css">
-
+<style>
+  .my-input {
+    transition:all linear 0.5s;
+    background: transparent;
+  }
+  .my-input.ng-invalid {
+    color:white;
+    background: red;
+  }
+</style>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -45,7 +54,7 @@
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <script src="app.js"></script>
     <script src="login/login.js"></script>
-  <script src="dashboard/dashboard.js"></script>
+  <script src="vendor/vendor.js"></script>
   <script src="landing/landing.js"></script>
   <script src="util.js"></script>
   <script src="components/version/version.js"></script>

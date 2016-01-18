@@ -89,16 +89,6 @@ angular.module('myApp.landing', ['ngRoute','firebase'])
         });
     }
 
-    // options for showing the alert box
-    function showAlert(opts) {
-        var title = opts.title;
-        var detail = opts.detail;
-        var className = 'alert ' + opts.className;
-
-        alertBox.removeClass().addClass(className);
-        alertBox.children('#alert-title').text(title);
-        alertBox.children('#alert-detail').text(detail);
-    }
 
     /// Controllers
     ////////////////////////////////////////

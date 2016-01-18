@@ -1,22 +1,10 @@
-// Handle third party login providers
-    // returns a promise
-	// the main firebase reference
-    var rootRef = new Firebase('https://testfirebaselogin.firebaseio.com/');
-    // options for showing the alert box
-    function showAlert(opts) {
-        var title = opts.title;
-        var detail = opts.detail;
-        var className = 'alert ' + opts.className;
-
-        alertBox.removeClass().addClass(className);
-        alertBox.children('#alert-title').text(title);
-        alertBox.children('#alert-detail').text(detail);
-    }
+    var rootfburl = 'https://testfirebaselogin.firebaseio.com/';
+    var rootfbRef = new Firebase(rootfburl);
 
     function thirdPartyLogin(provider) {
         var deferred = $.Deferred();
 
-        rootRef.authWithOAuthPopup(provider, function (err, user) {
+        rootfbRef.authWithOAuthPopup(provider, function (err, user) {
             if (err) {
                 deferred.reject(err);
             }
@@ -35,6 +23,7 @@
         $.when(promise)
             .then(function (authData) {
             alert("Authenticated - " + authData.uid);
+			window.location.href = "http://localhost:8000/app/#/vendor"
 			
         }, function (err) {
             console.log(err);
@@ -43,6 +32,22 @@
 
         });
     }
+	      
+      // Tests to see if /users/<userId> has any data. 
+      function checkIfUserExists(userId) {
+        rootfbRef.child('users').child(userId).once('value', function(snapshot) {
+          var exists = (snapshot.val() !== null);
+
+		if (exists) {
+          alert('user ' + userId + ' exists!');
+        } else {
+          
+		  alert('user ' + userId + ' does not exist!');
+        }
+		
+        });
+      }
+	  
         function autheticateme(txtbox) {
 
             var $currentButton = $(txtbox);
