@@ -1,7 +1,7 @@
 var rootRef = new Firebase('https://testfirebaselogin.firebaseio.com/');
 'use strict';
 
-angular.module('myApp.login', ['ngRoute','firebase'])
+angular.module('myApp.login', ['firebase.utils', 'firebase.auth', 'ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/login', {
@@ -10,7 +10,8 @@ angular.module('myApp.login', ['ngRoute','firebase'])
   });
 }])
 
-.controller('LoginCtrl', ['$scope', '$window', function($scope, $window) {
+
+.controller('LoginCtrl', ['$scope', 'Auth', '$location', 'fbutil', function($scope, Auth, $location, fbutil) {
 
  // Handle third party login providers
     // returns a promise
@@ -30,18 +31,64 @@ function thirdPartyLogin(provider) {
 };
 
 $scope.login = function(provider) {
-      $scope.err = null;
+    $scope.err = null;
     var socialLoginPromise;
     socialLoginPromise = thirdPartyLogin(provider);
 	
 	$.when(socialLoginPromise)
            .then(function (authData) {
-			$window.location.href = 'http://localhost:8000/app/index.html#/vendor'; //TODO
-
-       }, function (err) {
+			   //Check whether this user exists in DB
+			    var ref = fbutil.ref('users', authData.uid);
+				if (ref != null)
+					{
+						$location.path('/dashboard');
+						return fbutil.handler(function(cb) {
+								ref.set({email: email, name: name||firstPartOfEmail(email)}, cb);
+								});	
+					}
+				else {
+					//Create User
+					createAccount(authData);
+					}
+				}
+       , function (err) {
           $scope.err = errMessage(err);
         });
     };	
+	
+	
+$scope.createAccount = function(authData) {
+      $scope.err = null;
+    
+var usersRef = rootRef.child("users");
+usersRef.set({
+  "gh": {
+    date_of_birth: "June 23, 1912",
+    full_name: "Alan Turing"
+  }
+});
+
+$location.path('/vendor');
+}
+/*
+    // create user credentials in Firebase auth system
+        Auth.$createUser(authData.uid)
+          .then(function(user) {
+            // create a user profile in our data store
+            var ref = fbutil.ref('users', user.uid);
+            return fbutil.handler(function(cb) {
+              ref.set({email: email, name: name||firstPartOfEmail(email)}, cb);
+            });
+          })
+          .then(function(// user ) {
+            // redirect to the account page
+            $location.path('/vendor');
+          }, function(err) {
+            $scope.err = errMessage(err);
+          });
+      } 
+    };*/
+
 }]);
 
 
